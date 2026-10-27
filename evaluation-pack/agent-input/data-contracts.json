@@ -1,0 +1,50 @@
+[
+  {
+    "id": "D-CUSTOMER",
+    "purpose": "Synthetic customer",
+    "values": "firstName=MySDET; lastName=Synthetic; street=100 Test Avenue; city=Testville; state=CA; zipCode=90210; phoneNumber=2025550147; ssn=000-00-0000.",
+    "constraint": "username=qe13_ + 14 random hex characters; password=Demo! + 14 independent random hex characters. Both 19 characters. Generate once per case and keep private."
+  },
+  {
+    "id": "D-PAYEE",
+    "purpose": "Synthetic payee",
+    "values": "name=MySDET Test Utility; street=200 Sample Road; city=Testville; state=CA; zipCode=90210; phoneNumber=2025550182; accountNumber=123456.",
+    "constraint": "UI Verify Account=123456 unless case deliberately changes it."
+  },
+  {
+    "id": "D-PAYEE-JSON",
+    "purpose": "JSON request body",
+    "values": "{\"name\":\"MySDET Test Utility\",\"address\":{\"street\":\"200 Sample Road\",\"city\":\"Testville\",\"state\":\"CA\",\"zipCode\":\"90210\"},\"phoneNumber\":\"2025550182\",\"accountNumber\":123456}",
+    "constraint": "Bill payment Content-Type=application/json; accountId and amount are query parameters."
+  },
+  {
+    "id": "D-API",
+    "purpose": "HTTP registration fields",
+    "values": "customer.firstName, customer.lastName, customer.address.street, customer.address.city, customer.address.state, customer.address.zipCode, customer.phoneNumber, customer.ssn, customer.username, customer.password; repeatedPassword=password.",
+    "constraint": "GET then POST register.htm as URL-encoded form. Retain isolated context. No REST registration endpoint is assumed."
+  },
+  {
+    "id": "D-LEDGER",
+    "purpose": "Independent money oracle",
+    "values": "A/B=owned runtime account IDs; A0/B0=balances after setup; L0=before snapshot; L1=after snapshot; TA0/TB0=pre-action transaction ID sets.",
+    "constraint": "Use integer cents. Decimal 12.34=1234 cents. For transfer: A1=A0-1234, B1=B0+1234. Capture before action, never derive expected from final actual."
+  },
+  {
+    "id": "D-ENV",
+    "purpose": "Deployment and execution",
+    "values": "BASE_URL=https://parabank.parasoft.com/parabank/; API_BASE_URL=https://parabank.parasoft.com/parabank/services/bank/",
+    "constraint": "Public demo is shared and may reset. One worker, zero automatic retries. Do not change admin configuration or cleanDB/initializeDB."
+  },
+  {
+    "id": "D-EVIDENCE",
+    "purpose": "Results and hygiene",
+    "values": "Case ID, step number, build/commit, time, channel, expected/actual, sanitized request operation/status, before/after balances and transaction IDs.",
+    "constraint": "Redact credential-bearing URLs and personal inputs. No screenshots or traces containing credentials. Missing browser means Blocked, not Failed application behavior."
+  },
+  {
+    "id": "D-CLEANUP",
+    "purpose": "Resource lifecycle",
+    "values": "Close all local contexts in finally/fixture teardown.",
+    "constraint": "There is no scoped delete in this project. Server-side synthetic accounts/postings remain; record that limitation rather than claiming cleanup."
+  }
+]

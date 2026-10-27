@@ -1,0 +1,70 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PA-04",
+  "title": "Create CHECKING and reconcile funding",
+  "scope": "API",
+  "automation": "tests/api/banking.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER. GET register.htm then POST its URL-encoded registration fields and matching repeatedPassword using an isolated HTTP context.",
+      "expected": "Registration returns the expected Welcome page. This is HTTP form setup, not a documented REST registration API.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customers/{customerId}/accounts; save the account set and each balance in integer cents as L0.",
+      "expected": "All returned accounts belong to the fixture; no balance is rounded.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "POST createAccount?customerId={customerId}&newAccountType=0&fromAccountId={A}.",
+      "expected": "HTTP 200; new ID B, type CHECKING, correct customerId.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "Exactly two accounts; B is new.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare balances in cents to L0.",
+      "expected": "Total conserved; A0-A1 equals B1; original account retained.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 8,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "D-API setup",
+  "data": "D-CUSTOMER; newAccountType=0",
+  "kind": "Existing regression specification",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

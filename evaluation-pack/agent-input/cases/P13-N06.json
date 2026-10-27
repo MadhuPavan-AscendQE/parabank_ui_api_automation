@@ -1,0 +1,106 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N06",
+  "title": "Duplicate POST protection",
+  "scope": "New requirement",
+  "automation": "src/api/transport",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Verify supported idempotency mechanism in the target contract.",
+      "expected": "Exact header/field, retention and replay semantics are documented; otherwise Unsupported before mutation.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER. GET register.htm then POST its URL-encoded registration fields and matching repeatedPassword using an isolated HTTP context.",
+      "expected": "Registration returns the expected Welcome page. This is HTTP form setup, not a documented REST registration API.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 5,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "POST createAccount?customerId={customerId}&newAccountType=1&fromAccountId={A}.",
+      "expected": "HTTP 200 JSON Account; returned B is new, type SAVINGS, with matching customerId.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh customers/{customerId}/accounts after account creation.",
+      "expected": "The owned set includes A and B. Opening-account funding is complete before L0 is captured.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customers/{customerId}/accounts; save the account set and each balance in integer cents as L0.",
+      "expected": "All returned accounts belong to the fixture; no balance is rounded.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Save A/B transaction IDs.",
+      "expected": "Posting baseline retained.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Send transfer 1.11 with key K once.",
+      "expected": "First request succeeds according to target contract.",
+      "number": 10,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Send the identical request again with the same key K.",
+      "expected": "Replay follows documented response semantics.",
+      "number": 11,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh balances and both transaction histories.",
+      "expected": "Exactly 111 cents moved once; one new debit-credit pair, not two.",
+      "number": 12,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 13,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Requires documented idempotency support in a controlled target; public ParaBank does not establish this capability.",
+  "data": "amount=1.11; one unique key K; identical request body/parameters.",
+  "kind": "Requires application capability",
+  "acceptance": "Supported capability and single financial effect proven. Never invent an Idempotency-Key header and claim protection.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

@@ -1,0 +1,64 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N11",
+  "title": "Customer isolation",
+  "scope": "New requirement",
+  "automation": "src/fixtures",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Register customer C1 in context 1; retain its ID/account IDs.",
+      "expected": "C1’s normal UI and API lists agree.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Register customer C2 in context 2; retain its ID/account IDs.",
+      "expected": "C2’s normal UI and API lists agree.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare both account-ID sets.",
+      "expected": "No overlapping account IDs.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh each normal UI overview in its own context.",
+      "expected": "C1 shows only C1 accounts; C2 shows only C2 accounts.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Fetch each normal customer account list.",
+      "expected": "Each record’s customerId equals its intended customer. No cross-customer endpoint probing.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 7,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Two independently registered synthetic customers; no shared sessions or account-ID substitution.",
+  "data": "D-CUSTOMER twice with independent credentials; contexts C1/C2.",
+  "kind": "New automation coverage",
+  "acceptance": "Fixture isolation and ordinary-view separation only; not proof of REST authorization security.",
+  "priority": "High",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

@@ -1,0 +1,1 @@
+Official OpenAPI subset derived from Parasoft ParaBank, https://github.com/parasoft/parabank . Downloaded from the public service on 2026-10-15. Paths unrelated to Project 13 were removed; schemas and service metadata retained. Apache License 2.0, see UPSTREAM_LICENSE.txt. Original API specification is linked in API_GUIDE.md.

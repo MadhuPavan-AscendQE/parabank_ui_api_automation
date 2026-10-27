@@ -1,0 +1,1058 @@
+[
+  {
+    "id": "PB-01",
+    "title": "Required registration fields",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Blocked \u2014 Chromium executable missing",
+    "pre": "Fresh unauthenticated browser; no customer created.",
+    "steps": [
+      [
+        "Open Register; submit all fields empty",
+        "All ten required-field messages appear; registration remains on screen."
+      ]
+    ]
+  },
+  {
+    "id": "PB-02",
+    "title": "Password confirmation mismatch",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Not executed",
+    "pre": "Fresh unauthenticated browser; no customer created.",
+    "steps": [
+      [
+        "Fill synthetic registration; enter different confirmation; submit",
+        "Password mismatch error; customer not created."
+      ]
+    ]
+  },
+  {
+    "id": "PB-03",
+    "title": "Empty login validation",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Not executed",
+    "pre": "Fresh unauthenticated browser.",
+    "steps": [
+      [
+        "Submit empty login form",
+        "Username and password required error."
+      ]
+    ]
+  },
+  {
+    "id": "PB-04",
+    "title": "Register and reach account services",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Register generated synthetic customer with matching password",
+        "Welcome names the generated username; account services appear."
+      ]
+    ]
+  },
+  {
+    "id": "PB-05",
+    "title": "Logout and sign back in",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Register, then Log Out",
+        "Login form appears."
+      ],
+      [
+        "Sign in using the generated credentials",
+        "Own single account appears in overview."
+      ]
+    ]
+  },
+  {
+    "id": "PB-06",
+    "title": "Wrong password for owned customer",
+    "group": "UI / identity",
+    "file": "tests/ui/identity/identity.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Register and log out; sign in with wrong password",
+        "Authentication error; no account overview."
+      ]
+    ]
+  },
+  {
+    "id": "PB-07",
+    "title": "Overview aggregate and available balance",
+    "group": "UI / accounts",
+    "file": "tests/ui/accounts/accounts.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Read own overview account rows and Total",
+        "Sum of balances equals Total; available is max(balance, zero)."
+      ]
+    ]
+  },
+  {
+    "id": "PB-08",
+    "title": "Account details match overview",
+    "group": "UI / accounts",
+    "file": "tests/ui/accounts/accounts.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Read account ID and balance from overview; open same account",
+        "Details show same ID and balance."
+      ]
+    ]
+  },
+  {
+    "id": "PB-09",
+    "title": "Open CHECKING and conserve funds",
+    "group": "UI / accounts",
+    "file": "tests/ui/accounts/accounts.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Capture original balance; open CHECKING from owned account",
+        "New numeric ID is unique; account type matches."
+      ],
+      [
+        "Compare before/after overview balances",
+        "Funding moves internally; aggregate balance is unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PB-10",
+    "title": "Open SAVINGS and conserve funds",
+    "group": "UI / accounts",
+    "file": "tests/ui/accounts/accounts.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Capture original balance; open SAVINGS from owned account",
+        "New numeric ID is unique; account type matches."
+      ],
+      [
+        "Compare before/after overview balances",
+        "Funding moves internally; aggregate balance is unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PB-11",
+    "title": "Transfer options contain only owned accounts",
+    "group": "UI / transfers",
+    "file": "tests/ui/transfers/transfers.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Create two owned accounts; open Transfer Funds",
+        "From and To options exactly equal owned overview account IDs."
+      ]
+    ]
+  },
+  {
+    "id": "PB-12",
+    "title": "Transfer 12.34 with ledger conservation",
+    "group": "UI / transfers",
+    "file": "tests/ui/transfers/transfers.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Create account pair; capture balances",
+        "Both accounts belong to the synthetic customer."
+      ],
+      [
+        "Transfer 12.34; read confirmation and balances",
+        "Exact debit and credit; same account set; total funds unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PB-13",
+    "title": "Transfer one cent precisely",
+    "group": "UI / transfers",
+    "file": "tests/ui/transfers/transfers.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Create account pair; capture balances",
+        "Both accounts belong to the synthetic customer."
+      ],
+      [
+        "Transfer 0.01; read confirmation and balances",
+        "Exact debit and credit; same account set; total funds unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PB-14",
+    "title": "Transfer and reverse to original balances",
+    "group": "UI / transfers",
+    "file": "tests/ui/transfers/transfers.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Transfer 1.23 from A to B",
+        "Exact debit/credit and conserved total."
+      ],
+      [
+        "Transfer 1.23 from B back to A",
+        "Both original balances restored."
+      ]
+    ]
+  },
+  {
+    "id": "PB-15",
+    "title": "Transfer debit and credit transaction details",
+    "group": "UI / transfers",
+    "file": "tests/ui/transfers/transfers.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Transfer 3.21 between owned accounts",
+        "Transfer confirmation matches accounts and amount."
+      ],
+      [
+        "Open source activity and matching debit details",
+        "Unique Funds Transfer Sent debit for 3.21; detail ID/type/amount match row."
+      ],
+      [
+        "Open destination activity and matching credit details",
+        "Unique Funds Transfer Received credit for 3.21; detail ID/type/amount match row."
+      ]
+    ]
+  },
+  {
+    "id": "PB-16",
+    "title": "Required bill payment fields",
+    "group": "UI / payments",
+    "file": "tests/ui/payments/payments.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Submit bill-pay form empty",
+        "Required payee, address, phone, account, confirmation and amount errors visible."
+      ]
+    ]
+  },
+  {
+    "id": "PB-17",
+    "title": "Mismatched payee account does not debit",
+    "group": "UI / payments",
+    "file": "tests/ui/payments/payments.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Fill valid payment 2.50; change Verify Account to different number; submit",
+        "Mismatch error appears."
+      ],
+      [
+        "Read account overview",
+        "No balances or account IDs changed."
+      ]
+    ]
+  },
+  {
+    "id": "PB-18",
+    "title": "Non-numeric payment does not debit",
+    "group": "UI / payments",
+    "file": "tests/ui/payments/payments.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Fill valid payee; set amount abc; submit",
+        "Numeric validation error."
+      ],
+      [
+        "Read overview again",
+        "No balances changed."
+      ]
+    ]
+  },
+  {
+    "id": "PB-19",
+    "title": "Bill payment exact account debit",
+    "group": "UI / payments",
+    "file": "tests/ui/payments/payments.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Capture balance; pay synthetic utility 7.45",
+        "Confirmation shows payee, source account and 7.45."
+      ],
+      [
+        "Read overview",
+        "Only source debited by 745 cents; aggregate decreased by 745 cents."
+      ]
+    ]
+  },
+  {
+    "id": "PB-20",
+    "title": "Bill payment transaction drill-down",
+    "group": "UI / payments",
+    "file": "tests/ui/payments/payments.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Pay synthetic utility 4.56; open source activity",
+        "One matching Bill Payment debit with payee and amount."
+      ],
+      [
+        "Open transaction details",
+        "ID, Debit type and 4.56 agree with selected ledger row."
+      ]
+    ]
+  },
+  {
+    "id": "PB-21",
+    "title": "Profile prefill matches registered customer",
+    "group": "UI / profile",
+    "file": "tests/ui/profile/profile.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Register generated customer; open Update Contact Info",
+        "First/last name, address and phone match registration data."
+      ]
+    ]
+  },
+  {
+    "id": "PB-22",
+    "title": "Profile update survives logout and login",
+    "group": "UI / profile",
+    "file": "tests/ui/profile/profile.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Change city to Updated Testville; submit",
+        "Profile Updated confirmation."
+      ],
+      [
+        "Log out, sign in, reopen profile",
+        "Updated city persists."
+      ]
+    ]
+  },
+  {
+    "id": "PB-23",
+    "title": "Required profile field prevents save",
+    "group": "UI / profile",
+    "file": "tests/ui/profile/profile.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Clear first name on Update Profile; submit",
+        "Required first-name error."
+      ],
+      [
+        "Reload profile",
+        "Original first name retained."
+      ]
+    ]
+  },
+  {
+    "id": "PB-24",
+    "title": "Loan form shows owned funding account",
+    "group": "UI / lending",
+    "file": "tests/ui/lending/lending.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique synthetic customer registered through UI; demo service reachable.",
+    "steps": [
+      [
+        "Open Request Loan from Account Services",
+        "Loan amount and down payment are editable; funding selector contains only owned accounts."
+      ]
+    ]
+  },
+  {
+    "id": "PA-01",
+    "title": "Customer identity and contract",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Register synthetic customer through HTTP form; REST login",
+        "Login returns matching identity without username/password fields."
+      ],
+      [
+        "GET own customer",
+        "ID, name, address and phone match generated data."
+      ]
+    ]
+  },
+  {
+    "id": "PA-02",
+    "title": "Account list and ownership",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "GET customer accounts after setup",
+        "One initial account with unique ID, owner ID, recognized type and finite money."
+      ]
+    ]
+  },
+  {
+    "id": "PA-03",
+    "title": "Account detail agrees with list",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Read own account list; GET selected account",
+        "All returned account fields agree."
+      ]
+    ]
+  },
+  {
+    "id": "PA-04",
+    "title": "Create CHECKING and reconcile funding",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture own balances; POST createAccount with type 0",
+        "New owned CHECKING account with unique ID."
+      ],
+      [
+        "Read source and new balances",
+        "Source debit equals new balance; combined funds unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PA-05",
+    "title": "Create SAVINGS and reconcile funding",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 HTTP 400 during login/account retrieval",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture own balances; POST createAccount with type 1",
+        "New owned SAVINGS account with unique ID."
+      ],
+      [
+        "Read source and new balances",
+        "Source debit equals new balance; combined funds unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PA-06",
+    "title": "Deposit exact balance increment",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 HTTP 400 during login/account retrieval",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "GET balance; POST deposit 1.23; GET balance",
+        "200 acknowledgement and exactly 123 cents increase."
+      ]
+    ]
+  },
+  {
+    "id": "PA-07",
+    "title": "Withdraw exact balance decrement",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "GET funded owned account; POST withdraw 1.25; reread",
+        "200 acknowledgement and exactly 125 cents decrease."
+      ]
+    ]
+  },
+  {
+    "id": "PA-08",
+    "title": "Transfer 12.34 preserves funds",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 HTTP 400 during login/account retrieval",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Create owned savings target; capture both balances",
+        "Distinct account IDs under same customer."
+      ],
+      [
+        "POST transfer 12.34; reread ledger",
+        "Exact source debit/target credit; aggregate unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PA-09",
+    "title": "Transfer one cent preserves funds",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 HTTP 400 during login/account retrieval",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Create owned savings target; capture both balances",
+        "Distinct account IDs under same customer."
+      ],
+      [
+        "POST transfer 0.01; reread ledger",
+        "Exact source debit/target credit; aggregate unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PA-10",
+    "title": "Transfer postings form debit-credit pair",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 HTTP 400 during login/account retrieval",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture transaction IDs for owned pair; transfer 3.21",
+        "Transfer accepted."
+      ],
+      [
+        "Read new transactions by ID difference",
+        "Exactly one Debit Sent and one Credit Received for 3.21."
+      ]
+    ]
+  },
+  {
+    "id": "PA-11",
+    "title": "Bill payment response and debit",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture ledger; POST billpay 7.45 with synthetic payee JSON",
+        "Response matches payee, amount and owned source."
+      ],
+      [
+        "GET ledger",
+        "Only source decreases; total decreases by 745 cents."
+      ]
+    ]
+  },
+  {
+    "id": "PA-12",
+    "title": "Transaction detail matches history",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 Transaction.date contract mismatch",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture history IDs; deposit 4.56; get new transaction",
+        "Exactly one new owned transaction."
+      ],
+      [
+        "GET transaction by its returned ID",
+        "Full transaction matches account history entry."
+      ]
+    ]
+  },
+  {
+    "id": "PA-13",
+    "title": "Amount search includes created transaction",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Failed \u2014 Transaction.date contract mismatch",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Deposit unique amount 6.78 and capture returned history ID",
+        "One added deposit identified."
+      ],
+      [
+        "GET transactions/amount/6.78",
+        "Created ID included; every result amount equals 6.78."
+      ]
+    ]
+  },
+  {
+    "id": "PA-14",
+    "title": "Update profile and verify persistence",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "POST all customer update fields with city API Testville",
+        "200 update acknowledgement."
+      ],
+      [
+        "GET same customer",
+        "Changed city persists; ID and name unchanged."
+      ]
+    ]
+  },
+  {
+    "id": "PA-15",
+    "title": "JSON negotiation and XML alternative",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "GET owned account with Accept: application/xml",
+        "200 XML response contains own account ID."
+      ]
+    ]
+  },
+  {
+    "id": "PA-16",
+    "title": "Deposit and withdrawal round trip",
+    "group": "API",
+    "file": "tests/api/banking.spec.ts",
+    "status": "Passed",
+    "pre": "API: unique customer via HTTP registration form; REST calls on owned data.",
+    "steps": [
+      [
+        "Capture owned balance; deposit 7.89",
+        "Balance increases exactly."
+      ],
+      [
+        "Withdraw 7.89; GET balance",
+        "Original balance restored."
+      ]
+    ]
+  },
+  {
+    "id": "PE-01",
+    "title": "UI registration visible through API",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Blocked \u2014 Chromium executable missing",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Register customer through browser UI; REST login",
+        "Same customer identity returned."
+      ],
+      [
+        "Compare UI overview with API account list",
+        "Exact account IDs, balances and computed available amounts agree."
+      ]
+    ]
+  },
+  {
+    "id": "PE-02",
+    "title": "API account creation visible in UI",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Create own savings account through API",
+        "New account ID captured."
+      ],
+      [
+        "Open browser overview and new account details",
+        "Same balance and ID; SAVINGS type shown."
+      ]
+    ]
+  },
+  {
+    "id": "PE-03",
+    "title": "API transfer visible in UI ledger",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Capture UI balances for API-created owned pair; transfer 2.34 through API",
+        "API confirms transfer."
+      ],
+      [
+        "Reload UI overview; compare API ledger",
+        "Exact debit/credit and total conservation in both channels."
+      ]
+    ]
+  },
+  {
+    "id": "PE-04",
+    "title": "UI transfer verified by API postings",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Create pair through UI; capture API ledger and history IDs; transfer 3.45 in browser",
+        "UI confirmation identifies both accounts and amount."
+      ],
+      [
+        "Read REST balances and new source transaction",
+        "Exact money movement; one 3.45 Debit; UI and API agree."
+      ]
+    ]
+  },
+  {
+    "id": "PE-05",
+    "title": "UI bill payment verified through API",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Capture REST ledger/history; pay synthetic utility 5.67 through UI",
+        "Browser confirms owned account and amount."
+      ],
+      [
+        "GET REST account and history; compare UI ledger",
+        "Single matching bill Debit; total decreases by 567 cents; channels agree."
+      ]
+    ]
+  },
+  {
+    "id": "PE-06",
+    "title": "API profile update persists in browser",
+    "group": "E2E",
+    "file": "tests/e2e/consistency.spec.ts",
+    "status": "Not executed",
+    "pre": "Unique customer via browser UI; REST and browser point to same deployment.",
+    "steps": [
+      [
+        "Update city via API; logout and login in browser",
+        "Normal browser session reestablished."
+      ],
+      [
+        "Read UI profile and REST customer",
+        "Both show Hybrid Testville with same identity."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N01",
+    "title": "API loan approval reconciliation",
+    "group": "New requirement",
+    "file": "src/api/services; src/ui/lending",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit qualifying loan with agreed environment policy; validate through UI and API",
+        "New loan account, decision and down-payment ledger agree. Do not change public admin policy."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N02",
+    "title": "Loan denial leaves no account",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit down payment beyond owned balance",
+        "Expected denial; no new account or balance mutation under agreed policy."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N03",
+    "title": "Reject negative transfer",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit -1.00 between owned accounts via API",
+        "Proposed rule: explicit rejection and no ledger/posting changes. Preserve defect if demo accepts it."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N04",
+    "title": "Reject zero transfer",
+    "group": "New requirement",
+    "file": "src/api/services; UI",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit 0.00 through both channels",
+        "Proposed rule: no financial posting; validation shown/returned."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N05",
+    "title": "Overdraft policy consistency",
+    "group": "New requirement",
+    "file": "src/domain; policy",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Attempt transfer beyond balance in UI and API",
+        "Apply agreed overdraft policy; both channels behave consistently."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N06",
+    "title": "Duplicate POST protection",
+    "group": "New requirement",
+    "file": "src/api/transport",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit same owned transfer twice with agreed idempotency mechanism",
+        "One posting pair if idempotency is a required capability; record unsupported feature instead of assuming a header works."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N07",
+    "title": "Date-range transaction search",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Create known owned transactions; query onDate and from/to dates",
+        "Boundary dates and returned IDs match seeded postings; timezone contract explicit."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N08",
+    "title": "Debit and credit filtering",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Create both posting types; query month/type",
+        "Every record matches requested account, month and type."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N09",
+    "title": "UI transaction search matches REST",
+    "group": "New requirement",
+    "file": "src/ui/search",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Search known amount in UI and REST",
+        "Same owned transaction IDs and amounts returned."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N10",
+    "title": "Profile update encoding",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Update synthetic address containing ampersand and non-ASCII text",
+        "Exact round trip through REST read and browser form."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N11",
+    "title": "Customer isolation",
+    "group": "New requirement",
+    "file": "src/fixtures",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Provision two owned synthetic customers; compare ordinary account lists and UIs",
+        "No customer A accounts appear in customer B normal views; no unrelated resource probing."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N12",
+    "title": "Invalid billpay JSON",
+    "group": "New requirement",
+    "file": "src/api/contracts",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Submit missing required payee fields on own account",
+        "Proposed 4xx validation and no debit; document actual behavior if contract differs."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N13",
+    "title": "Malformed amount validation",
+    "group": "New requirement",
+    "file": "src/api/services",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Send non-numeric amount on owned account",
+        "Non-success response and unchanged balances; document precise status as verified."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N14",
+    "title": "Session after logout",
+    "group": "New requirement",
+    "file": "src/ui/identity",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Logout then revisit own protected UI page",
+        "No customer data without login; REST login response is not treated as UI authentication."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N15",
+    "title": "Cross-channel full journey",
+    "group": "New requirement",
+    "file": "src/workflows",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "UI register \u2192 API account \u2192 UI transfer \u2192 API bill \u2192 UI relogin",
+        "Final account sets and balances agree with one independent money ledger."
+      ]
+    ]
+  },
+  {
+    "id": "P13-N16",
+    "title": "Response contract drift",
+    "group": "New requirement",
+    "file": "docs/api; src/api/contracts",
+    "status": "Intentionally unimplemented",
+    "pre": "Implement first; use only owned synthetic data; agree proposed policy where stated.",
+    "steps": [
+      [
+        "Prepare isolated customer and capture owned account/transaction IDs",
+        "Pre-action ledger recorded."
+      ],
+      [
+        "Compare pinned OpenAPI subset and live contract",
+        "Report meaningful operation/schema differences without rewriting oracles automatically."
+      ]
+    ]
+  }
+]

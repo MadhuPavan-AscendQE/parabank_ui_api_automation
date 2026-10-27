@@ -1,0 +1,42 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PB-03",
+  "title": "Empty login validation",
+  "scope": "UI / identity",
+  "automation": "tests/ui/identity/identity.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Leave username and password blank.",
+      "expected": "Both login inputs are empty.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Log In.",
+      "expected": "Please enter a username and password. is visible.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 4,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Fresh unauthenticated UI",
+  "data": "Empty username/password",
+  "kind": "Existing regression specification",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

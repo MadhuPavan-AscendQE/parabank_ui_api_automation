@@ -1,0 +1,140 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PE-04",
+  "title": "UI transfer verified by API postings",
+  "scope": "E2E",
+  "automation": "tests/e2e/consistency.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER and open Register.",
+      "expected": "Registration form is visible; retain this run’s generated username and password privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Fill first name, last name, street, city, state, ZIP, phone, SSN, username and password from D-CUSTOMER; fill Confirm with the same password.",
+      "expected": "All inputs contain the intended values. Credentials are unique to this test.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Click Register once.",
+      "expected": "Welcome heading contains the generated username; Accounts Overview link is visible. Stop this case if registration fails.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 5,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 6,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Open New Account and select SAVINGS.",
+      "expected": "SAVINGS is selected; the funding dropdown has the owned original account A.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Choose account A and click Open New Account once.",
+      "expected": "Success returns a new numeric account ID B, distinct from A.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Accounts Overview after creation.",
+      "expected": "Both A and B are present. Capture balances only after account-opening funding completes.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customers/{customerId}/accounts; save the account set and each balance in integer cents as L0.",
+      "expected": "All returned accounts belong to the fixture; no balance is rounded.",
+      "number": 10,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET A transactions and save existing IDs.",
+      "expected": "Strict transaction contract passes; retain TA0.",
+      "number": 11,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Transfer Funds.",
+      "expected": "Amount, From and To controls are visible.",
+      "number": 12,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Select owned From=A, To=B; fill Amount=3.45.",
+      "expected": "Distinct selected accounts are A and B; amount displays 3.45.",
+      "number": 13,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Transfer once.",
+      "expected": "Transfer Complete identifies the selected source, destination and amount. Do not resubmit on timeout.",
+      "number": 14,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh the account ledger and compare L1 with L0 using integer cents.",
+      "expected": "Same account set; A1=A0-345 cents; B1=B0+345 cents; all other balances unchanged; total(L1)=total(L0).",
+      "number": 15,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET A transactions and subtract TA0.",
+      "expected": "Exactly one new Debit for 3.45.",
+      "number": 16,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh UI overview and compare REST ledger.",
+      "expected": "Account IDs and all balances/available amounts agree.",
+      "number": 17,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 18,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "UI registration plus independent REST context",
+  "data": "D-CUSTOMER; transfer=3.45",
+  "kind": "Existing regression specification",
+  "priority": "High",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

@@ -1,0 +1,85 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N07",
+  "title": "Date-range transaction search",
+  "scope": "New requirement",
+  "automation": "src/api/services",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER. GET register.htm then POST its URL-encoded registration fields and matching repeatedPassword using an isolated HTTP context.",
+      "expected": "Registration returns the expected Welcome page. This is HTTP form setup, not a documented REST registration API.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Resolve documented onDate and from/to operation parameters from pinned OpenAPI.",
+      "expected": "Record formats, timezone and inclusive/exclusive rule; no invented endpoint.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Create or seed owned transactions with known dates and retain IDs.",
+      "expected": "Seed provenance records date and account for every expected transaction; public demo only supports current-day subset.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Query onDate=D.",
+      "expected": "Expected IDs for D included; outside-date seed IDs excluded.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Query from=D to=D.",
+      "expected": "Result matches documented same-day boundary behavior.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Query D-1 through D+1.",
+      "expected": "All expected IDs within agreed bounds included; outside-range IDs excluded.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 10,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Needs explicit service date format/timezone and documented date inclusivity; controlled data required for historical boundaries.",
+  "data": "Deposits 2.11 and 2.12 on known service dates; controlled seed on D-1, D, D+1 for boundaries.",
+  "kind": "New automation coverage",
+  "acceptance": "ID-set comparison against known dated seeds; block boundary coverage without controllable dated data.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

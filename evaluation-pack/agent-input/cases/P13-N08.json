@@ -1,0 +1,85 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N08",
+  "title": "Debit and credit filtering",
+  "scope": "New requirement",
+  "automation": "src/api/services",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER. GET register.htm then POST its URL-encoded registration fields and matching repeatedPassword using an isolated HTTP context.",
+      "expected": "Registration returns the expected Welcome page. This is HTTP form setup, not a documented REST registration API.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Save A history IDs, then deposit 2.21.",
+      "expected": "Deposit acknowledgement succeeds; new credit ID retained.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Withdraw 1.11 from A and identify new posting.",
+      "expected": "Withdrawal succeeds; new debit ID retained.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Query documented transaction filter for the current service month and Debit.",
+      "expected": "Known debit is included; every result belongs to A and matches requested month/type.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Repeat for Credit.",
+      "expected": "Known credit is included; every result is Credit for the same month/account.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare filtered IDs against independently filtered full history.",
+      "expected": "Exact sets agree; a source contract/date failure is reported separately.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 10,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Needs documented month/year/type filter semantics and strict transaction contract.",
+  "data": "Deposit=2.21; withdrawal=1.11; same owned account A.",
+  "kind": "New automation coverage",
+  "acceptance": "Both types tested; all records checked, not just the first row; known created IDs must be present.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

@@ -1,0 +1,6 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> parabank-ui-api@1.0.0 test:domain
+> node tools/check-money.cjs
+
+19 domain/data checks passed; no browser or server actions.

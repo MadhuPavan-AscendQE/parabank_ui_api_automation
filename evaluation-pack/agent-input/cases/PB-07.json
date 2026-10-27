@@ -1,0 +1,70 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PB-07",
+  "title": "Overview aggregate and available balance",
+  "scope": "UI / accounts",
+  "automation": "tests/ui/accounts/accounts.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER and open Register.",
+      "expected": "Registration form is visible; retain this run’s generated username and password privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Fill first name, last name, street, city, state, ZIP, phone, SSN, username and password from D-CUSTOMER; fill Confirm with the same password.",
+      "expected": "All inputs contain the intended values. Credentials are unique to this test.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Click Register once.",
+      "expected": "Welcome heading contains the generated username; Accounts Overview link is visible. Stop this case if registration fails.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Accounts Overview and wait for account rows; save IDs, balances and available amounts in integer cents.",
+      "expected": "Every displayed account row is parsed; Total is excluded from account IDs. Save this snapshot as L0.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Read the Total value separately.",
+      "expected": "Total parses to integer cents.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Sum row balances and compare to Total.",
+      "expected": "Exact equality; each available amount equals max(balance,0) under this baseline oracle.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 8,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Create through UI within this case",
+  "data": "D-CUSTOMER",
+  "kind": "Existing regression specification",
+  "priority": "High",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

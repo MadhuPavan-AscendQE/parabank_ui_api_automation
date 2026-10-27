@@ -1,0 +1,71 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N05",
+  "title": "Overdraft policy consistency",
+  "scope": "New requirement",
+  "automation": "src/domain; policy",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Create independent owned UI and API pairs; capture initial balances and histories.",
+      "expected": "Each attempt has its own baseline.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compute each attempt amount from that source balance plus one cent.",
+      "expected": "Decimal serialization is exact; no fixed public balance assumption.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Submit the UI attempt once.",
+      "expected": "Decision and error/confirmation are captured.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Submit the API attempt once.",
+      "expected": "Response status and sanitized payload are captured.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare each after-ledger to its own before-ledger.",
+      "expected": "No-overdraft policy: rejection and unchanged ledger. Permitted-overdraft policy: exact debit/credit and only documented fees.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare policy outcomes across channels.",
+      "expected": "Both enforce the same pinned policy; differences are defects, not tolerated drift.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 8,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Pin no-overdraft or permitted-overdraft policy, including fees and available-balance rules. No policy means Blocked.",
+  "data": "Separate fresh UI/API account pairs; amount=source balance+0.01.",
+  "kind": "Policy-dependent automation",
+  "acceptance": "Policy-specific expected balance equations and channel consistency; block if policy inputs are missing.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

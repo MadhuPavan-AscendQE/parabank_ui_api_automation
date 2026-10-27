@@ -1,0 +1,29 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> parabank-ui-api@1.0.0 test:api
+> playwright test --project=api --grep-invert PA-01
+
+
+Running 15 tests using 1 worker
+
+(node:32) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [api] › tests/api/banking.spec.ts:8:5 › PA-02 Account list and ownership (28.3s)
+  ✓   2 [api] › tests/api/banking.spec.ts:9:5 › PA-03 Account detail agrees with list (34.7s)
+  ✓   3 [api] › tests/api/banking.spec.ts:10:5 › PA-04 Create CHECKING and reconcile funding (47.4s)
+  ✘   4 [api] › tests/api/banking.spec.ts:11:5 › PA-05 Create SAVINGS and reconcile funding (42.0s)
+(node:44) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   5 [api] › tests/api/banking.spec.ts:12:5 › PA-06 Deposit exact balance increment (22.2s)
+(node:56) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [api] › tests/api/banking.spec.ts:13:5 › PA-07 Withdraw exact balance decrement (40.3s)
+  ✘   7 [api] › tests/api/banking.spec.ts:14:5 › PA-08 Transfer 12.34 preserves funds (22.5s)
+(node:68) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   8 [api] › tests/api/banking.spec.ts:15:5 › PA-09 Transfer one cent preserves funds (42.3s)
+(node:80) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   9 [api] › tests/api/banking.spec.ts:16:5 › PA-10 Transfer postings form debit-credit pair (29.4s)
+(node:92) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

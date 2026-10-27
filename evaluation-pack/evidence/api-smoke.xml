@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="30.290449999999996">
+<testsuite name="api/banking.spec.ts" timestamp="2026-10-15T05:12:03.275Z" hostname="api" tests="1" failures="0" skipped="0" time="29.735" errors="0">
+<testcase name="PA-01 Customer identity and contract" classname="api/banking.spec.ts" time="29.735">
+</testcase>
+</testsuite>
+</testsuites>

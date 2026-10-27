@@ -1,0 +1,77 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PB-23",
+  "title": "Required profile field prevents save",
+  "scope": "UI / profile",
+  "automation": "tests/ui/profile/profile.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER and open Register.",
+      "expected": "Registration form is visible; retain this run’s generated username and password privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Fill first name, last name, street, city, state, ZIP, phone, SSN, username and password from D-CUSTOMER; fill Confirm with the same password.",
+      "expected": "All inputs contain the intended values. Credentials are unique to this test.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Click Register once.",
+      "expected": "Welcome heading contains the generated username; Accounts Overview link is visible. Stop this case if registration fails.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Update Contact Info.",
+      "expected": "Original first name is populated.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Clear First Name.",
+      "expected": "Input is empty.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Update Profile.",
+      "expected": "First-name required error is visible.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Reload Update Contact Info.",
+      "expected": "Original first name remains persisted.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 9,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Create through UI within this case",
+  "data": "D-CUSTOMER",
+  "kind": "Existing regression specification",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

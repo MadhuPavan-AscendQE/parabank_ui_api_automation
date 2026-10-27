@@ -1,0 +1,148 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N15",
+  "title": "Cross-channel full journey",
+  "scope": "New requirement",
+  "automation": "src/workflows",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER and open Register.",
+      "expected": "Registration form is visible; retain this run’s generated username and password privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Fill first name, last name, street, city, state, ZIP, phone, SSN, username and password from D-CUSTOMER; fill Confirm with the same password.",
+      "expected": "All inputs contain the intended values. Credentials are unique to this test.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Click Register once.",
+      "expected": "Welcome heading contains the generated username; Accounts Overview link is visible. Stop this case if registration fails.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 5,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 6,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "POST createAccount?customerId={customerId}&newAccountType=1&fromAccountId={A}.",
+      "expected": "HTTP 200 JSON Account; returned B is new, type SAVINGS, with matching customerId.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Refresh customers/{customerId}/accounts after account creation.",
+      "expected": "The owned set includes A and B. Opening-account funding is complete before L0 is captured.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customers/{customerId}/accounts; save the account set and each balance in integer cents as L0.",
+      "expected": "All returned accounts belong to the fixture; no balance is rounded.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Initialize an independent expected ledger from L0.",
+      "expected": "A0/B0 captured after opening-account funding.",
+      "number": 10,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Transfer Funds.",
+      "expected": "Amount, From and To controls are visible.",
+      "number": 11,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Select owned From=A, To=B; fill Amount=2.34.",
+      "expected": "Distinct selected accounts are A and B; amount displays 2.34.",
+      "number": 12,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Transfer once.",
+      "expected": "Transfer Complete identifies the selected source, destination and amount. Do not resubmit on timeout.",
+      "number": 13,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Update expected ledger: A-=234, B+=234 cents.",
+      "expected": "Expected total remains initial total.",
+      "number": 14,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "POST billpay from B for 5.67 with D-PAYEE-JSON.",
+      "expected": "HTTP 200 with matching B, payee and amount; B has sufficient funds before request.",
+      "number": 15,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Update expected ledger: B-=567 cents.",
+      "expected": "Expected total equals initial total minus 567 cents.",
+      "number": 16,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Log out of UI then log in using generated credentials.",
+      "expected": "Normal session restored.",
+      "number": 17,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Read UI and API ledgers; compare each to independent expected ledger.",
+      "expected": "A=A0-234; B=B0+234-567; IDs unchanged; both channels equal expected balances.",
+      "number": 18,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 19,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Browser and API same deployment; adequate funds after account creation.",
+  "data": "API savings; UI transfer=2.34; API bill=5.67; D-PAYEE.",
+  "kind": "New automation coverage",
+  "acceptance": "One independent oracle, each action reconciled, final total decreased only by bill amount; no recomputing expected from actual final output.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

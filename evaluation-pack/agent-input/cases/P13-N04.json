@@ -1,0 +1,78 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N04",
+  "title": "Reject zero transfer",
+  "scope": "New requirement",
+  "automation": "src/api/services; UI",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Provision a fresh UI fixture with two owned accounts.",
+      "expected": "Separate A/B and initial ledger/history retained.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Transfer Funds.",
+      "expected": "Amount, From and To controls are visible.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Select owned From=A, To=B; fill Amount=0.00.",
+      "expected": "Distinct selected accounts are A and B; amount displays 0.00.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Transfer once.",
+      "expected": "Proposed acceptance: validation displayed and no successful transfer.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Read balances and histories.",
+      "expected": "No financial changes for this attempt.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Provision an independent API fixture with two accounts; snapshot it.",
+      "expected": "Second baseline isolates the API attempt.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Send raw POST transfer amount=0.00 on the second fixture.",
+      "expected": "Proposed acceptance: API 4xx; balances and histories unchanged.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 9,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Proposed contract: zero transfer rejected in both channels; API 4xx; no postings.",
+  "data": "amount=0.00; separate fresh UI and API fixtures",
+  "kind": "Proposed product rule",
+  "acceptance": "UI and API reject zero; report separate channel results. Positive helper cannot be used as proof of server rejection.",
+  "priority": "High",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

@@ -1,0 +1,75 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> parabank-ui-api@1.0.0 test:api
+> playwright test --project=api --grep PA-(11|12|13|14|15|16)
+
+
+Running 6 tests using 1 worker
+
+(node:30) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [api] › tests/api/banking.spec.ts:16:5 › PA-11 Bill payment response and debit (55.0s)
+  ✘  2 [api] › tests/api/banking.spec.ts:17:5 › PA-12 Transaction detail matches history (34.8s)
+(node:42) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [api] › tests/api/banking.spec.ts:18:5 › PA-13 Amount search includes created transaction (42.4s)
+(node:54) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [api] › tests/api/banking.spec.ts:31:5 › PA-14 Update profile and verify persistence (25.9s)
+  ✓  5 [api] › tests/api/banking.spec.ts:32:5 › PA-15 JSON negotiation and XML alternative (30.3s)
+  ✓  6 [api] › tests/api/banking.spec.ts:33:5 › PA-16 Deposit and withdrawal round trip (36.1s)
+
+
+  1) [api] › tests/api/banking.spec.ts:17:5 › PA-12 Transaction detail matches history › Transaction detail matches history 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "string"
+    Received: "number"
+
+       at ../src/api/contracts/validate.ts:12
+
+      10 |     expect(typeof v.address?.[k]).toBe('string'); expect(v.password).toBeUndefined(); expect(v.username).toBeUndefined(); return v; }
+      11 | export function account(v: any): ApiAccount { id(v.id); id(v.customerId); expect(['CHECKING', 'SAVINGS', 'LOAN']).toContain(v.type); apiCents(v.balance); return v; }
+    > 12 | export function transaction(v: any): ApiTransaction { id(v.id); id(v.accountId); expect(['Debit', 'Credit']).toContain(v.type); expect(typeof v.description).toBe('string'); expect(typeof v.date).toBe('string'); expect(v.date).toMatch(/^\d{4}-\d{2}-\d{2}T/); expect(Number.isFinite(Date.parse(v.date))).toBe(true); apiCents(v.amount); return v; }
+         |                                                                                                                                                                                                    ^
+      13 | export function bill(v: any): ApiBill { id(v.accountId); apiCents(v.amount); expect(typeof v.payeeName).toBe('string'); return v; }
+      14 |
+        at map (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/contracts/validate.ts:12:196)
+        at OwnedBank.transactions (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/services/owned-bank.ts:32:310)
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:17:303
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:17:72
+
+    Error Context: test-results/api-banking-PA-12-Transaction-detail-matches-history-api/error-context.md
+
+  2) [api] › tests/api/banking.spec.ts:18:5 › PA-13 Amount search includes created transaction › Amount search includes created transaction 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "string"
+    Received: "number"
+
+       at ../src/api/contracts/validate.ts:12
+
+      10 |     expect(typeof v.address?.[k]).toBe('string'); expect(v.password).toBeUndefined(); expect(v.username).toBeUndefined(); return v; }
+      11 | export function account(v: any): ApiAccount { id(v.id); id(v.customerId); expect(['CHECKING', 'SAVINGS', 'LOAN']).toContain(v.type); apiCents(v.balance); return v; }
+    > 12 | export function transaction(v: any): ApiTransaction { id(v.id); id(v.accountId); expect(['Debit', 'Credit']).toContain(v.type); expect(typeof v.description).toBe('string'); expect(typeof v.date).toBe('string'); expect(v.date).toMatch(/^\d{4}-\d{2}-\d{2}T/); expect(Number.isFinite(Date.parse(v.date))).toBe(true); apiCents(v.amount); return v; }
+         |                                                                                                                                                                                                    ^
+      13 | export function bill(v: any): ApiBill { id(v.accountId); apiCents(v.amount); expect(typeof v.payeeName).toBe('string'); return v; }
+      14 |
+        at map (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/contracts/validate.ts:12:196)
+        at OwnedBank.transactions (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/services/owned-bank.ts:32:310)
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:23:24
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:19:5
+
+    Error Context: test-results/api-banking-PA-13-Amount-search-includes-created-transaction-api/error-context.md
+
+  2 failed
+    [api] › tests/api/banking.spec.ts:17:5 › PA-12 Transaction detail matches history ──────────────
+    [api] › tests/api/banking.spec.ts:18:5 › PA-13 Amount search includes created transaction ──────
+  4 passed (3.8m)
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

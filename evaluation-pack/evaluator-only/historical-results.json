@@ -1,0 +1,312 @@
+[
+  {
+    "id": "PB-01",
+    "previousImplementationResult": "Blocked — Chromium executable missing",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-02",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-03",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-04",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-05",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-06",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-07",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-08",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-09",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-10",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-11",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-12",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-13",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-14",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-15",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-16",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-17",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-18",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-19",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-20",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-21",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-22",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-23",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PB-24",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-01",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-02",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-03",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-04",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-05",
+    "previousImplementationResult": "Failed — HTTP 400 during login/account retrieval",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-06",
+    "previousImplementationResult": "Failed — HTTP 400 during login/account retrieval",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-07",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-08",
+    "previousImplementationResult": "Failed — HTTP 400 during login/account retrieval",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-09",
+    "previousImplementationResult": "Failed — HTTP 400 during login/account retrieval",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-10",
+    "previousImplementationResult": "Failed — HTTP 400 during login/account retrieval",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-11",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-12",
+    "previousImplementationResult": "Failed — Transaction.date contract mismatch",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-13",
+    "previousImplementationResult": "Failed — Transaction.date contract mismatch",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-14",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-15",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PA-16",
+    "previousImplementationResult": "Passed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-01",
+    "previousImplementationResult": "Blocked — Chromium executable missing",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-02",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-03",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-04",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-05",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "PE-06",
+    "previousImplementationResult": "Not executed",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N01",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N02",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N03",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N04",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N05",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N06",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N07",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N08",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N09",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N10",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N11",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N12",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N13",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N14",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N15",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  },
+  {
+    "id": "P13-N16",
+    "previousImplementationResult": "Intentionally unimplemented",
+    "expandedSpecificationResult": "Not executed"
+  }
+]

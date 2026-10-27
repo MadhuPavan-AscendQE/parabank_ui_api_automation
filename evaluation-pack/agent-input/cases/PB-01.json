@@ -1,0 +1,56 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "PB-01",
+  "title": "Required registration fields",
+  "scope": "UI / identity",
+  "automation": "tests/ui/identity/identity.spec.ts",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Register.",
+      "expected": "Blank registration form is visible.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Leave all registration fields blank.",
+      "expected": "No input contains generated or autofilled data.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Click Register once.",
+      "expected": "Registration validation is displayed.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Inspect the required-field messages.",
+      "expected": "Exactly the expected ten messages are visible: first name, last name, address, city, state, ZIP, SSN, username, password, password confirmation. Phone is not included in this required list.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 6,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Fresh unauthenticated UI",
+  "data": "Empty fields",
+  "kind": "Existing regression specification",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

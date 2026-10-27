@@ -1,0 +1,3 @@
+import { test, expect } from '../../../src/fixtures/bank.fixture';
+import { account } from '../../../src/domain/ledger/account';
+test("PB-24 Loan form shows owned funding account", async ({ customer, overview, page }) => { await test.step("Loan form shows owned funding account", async () => { void customer; const ids = Object.keys(await overview.snapshot()).sort(); await overview.service('Request Loan'); await overview.heading('Apply for a Loan'); await expect(page.locator('#amount')).toBeEditable(); await expect(page.locator('#downPayment')).toBeEditable(); expect((await page.locator('#fromAccountId option').evaluateAll(opts => opts.map(o => (o as HTMLOptionElement).value))).sort()).toEqual(ids); }); });

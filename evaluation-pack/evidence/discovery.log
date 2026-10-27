@@ -1,0 +1,53 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> parabank-ui-api@1.0.0 test
+> playwright test --list
+
+Listing tests:
+  [api] › api/banking.spec.ts:6:5 › PA-01 Customer identity and contract
+  [api] › api/banking.spec.ts:7:5 › PA-02 Account list and ownership
+  [api] › api/banking.spec.ts:8:5 › PA-03 Account detail agrees with list
+  [api] › api/banking.spec.ts:9:5 › PA-04 Create CHECKING and reconcile funding
+  [api] › api/banking.spec.ts:10:5 › PA-05 Create SAVINGS and reconcile funding
+  [api] › api/banking.spec.ts:11:5 › PA-06 Deposit exact balance increment
+  [api] › api/banking.spec.ts:12:5 › PA-07 Withdraw exact balance decrement
+  [api] › api/banking.spec.ts:13:5 › PA-08 Transfer 12.34 preserves funds
+  [api] › api/banking.spec.ts:14:5 › PA-09 Transfer one cent preserves funds
+  [api] › api/banking.spec.ts:15:5 › PA-10 Transfer postings form debit-credit pair
+  [api] › api/banking.spec.ts:16:5 › PA-11 Bill payment response and debit
+  [api] › api/banking.spec.ts:17:5 › PA-12 Transaction detail matches history
+  [api] › api/banking.spec.ts:18:5 › PA-13 Amount search includes created transaction
+  [api] › api/banking.spec.ts:31:5 › PA-14 Update profile and verify persistence
+  [api] › api/banking.spec.ts:32:5 › PA-15 JSON negotiation and XML alternative
+  [api] › api/banking.spec.ts:33:5 › PA-16 Deposit and withdrawal round trip
+  [ui] › ui/accounts/accounts.spec.ts:3:5 › PB-07 Overview aggregate and available balance
+  [ui] › ui/accounts/accounts.spec.ts:12:5 › PB-08 Account details match overview
+  [ui] › ui/accounts/accounts.spec.ts:13:5 › PB-09 Open CHECKING and conserve funds
+  [ui] › ui/accounts/accounts.spec.ts:14:5 › PB-10 Open SAVINGS and conserve funds
+  [ui] › ui/identity/identity.spec.ts:4:5 › PB-01 Required registration fields
+  [ui] › ui/identity/identity.spec.ts:12:5 › PB-02 Password confirmation mismatch
+  [ui] › ui/identity/identity.spec.ts:13:5 › PB-03 Empty login validation
+  [ui] › ui/identity/identity.spec.ts:14:5 › PB-04 Register and reach account services
+  [ui] › ui/identity/identity.spec.ts:15:5 › PB-05 Logout and sign back in
+  [ui] › ui/identity/identity.spec.ts:16:5 › PB-06 Wrong password for owned customer
+  [ui] › ui/lending/lending.spec.ts:3:5 › PB-24 Loan form shows owned funding account
+  [ui] › ui/payments/payments.spec.ts:6:5 › PB-16 Required bill payment fields
+  [ui] › ui/payments/payments.spec.ts:15:5 › PB-17 Mismatched payee account does not debit
+  [ui] › ui/payments/payments.spec.ts:16:5 › PB-18 Non-numeric payment does not debit
+  [ui] › ui/payments/payments.spec.ts:17:5 › PB-19 Bill payment exact account debit
+  [ui] › ui/payments/payments.spec.ts:18:5 › PB-20 Bill payment transaction drill-down
+  [ui] › ui/profile/profile.spec.ts:2:5 › PB-21 Profile prefill matches registered customer
+  [ui] › ui/profile/profile.spec.ts:3:5 › PB-22 Profile update survives logout and login
+  [ui] › ui/profile/profile.spec.ts:4:5 › PB-23 Required profile field prevents save
+  [ui] › ui/transfers/transfers.spec.ts:4:5 › PB-11 Transfer options contain only owned accounts
+  [ui] › ui/transfers/transfers.spec.ts:13:5 › PB-12 Transfer 12.34 with ledger conservation
+  [ui] › ui/transfers/transfers.spec.ts:14:5 › PB-13 Transfer one cent precisely
+  [ui] › ui/transfers/transfers.spec.ts:15:5 › PB-14 Transfer and reverse to original balances
+  [ui] › ui/transfers/transfers.spec.ts:16:5 › PB-15 Transfer debit and credit transaction details
+  [e2e] › e2e/consistency.spec.ts:6:5 › PE-01 UI registration visible through API
+  [e2e] › e2e/consistency.spec.ts:7:5 › PE-02 API account creation visible in UI
+  [e2e] › e2e/consistency.spec.ts:8:5 › PE-03 API transfer visible in UI ledger
+  [e2e] › e2e/consistency.spec.ts:9:5 › PE-04 UI transfer verified by API postings
+  [e2e] › e2e/consistency.spec.ts:10:5 › PE-05 UI bill payment verified through API
+  [e2e] › e2e/consistency.spec.ts:11:5 › PE-06 API profile update persists in browser
+Total: 46 tests in 8 files

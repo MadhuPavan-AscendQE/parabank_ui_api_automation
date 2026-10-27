@@ -1,0 +1,99 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N10",
+  "title": "Profile update encoding",
+  "scope": "New requirement",
+  "automation": "src/api/services",
+  "steps": [
+    {
+      "phase": "Setup",
+      "action": "Launch a new browser context and open the configured BASE_URL.",
+      "expected": "Login panel is visible; context contains no previous customer session.",
+      "number": 1,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Generate D-CUSTOMER and open Register.",
+      "expected": "Registration form is visible; retain this run’s generated username and password privately.",
+      "number": 2,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Fill first name, last name, street, city, state, ZIP, phone, SSN, username and password from D-CUSTOMER; fill Confirm with the same password.",
+      "expected": "All inputs contain the intended values. Credentials are unique to this test.",
+      "number": 3,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "Click Register once.",
+      "expected": "Welcome heading contains the generated username; Accounts Overview link is visible. Stop this case if registration fails.",
+      "number": 4,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET REST login/{encoded username}/{encoded password} with Accept: application/json.",
+      "expected": "HTTP 200; JSON Customer passes the pinned contract; first and last names match D-CUSTOMER. Save customerId privately.",
+      "number": 5,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Setup",
+      "action": "GET customers/{customerId}/accounts.",
+      "expected": "HTTP 200 JSON array; each customerId matches this fixture. Save discovered account IDs; do not guess IDs.",
+      "number": 6,
+      "evidence": "Setup outcome, generated data reference and owned resource IDs (no credentials)"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Construct full update payload; change street and city to stated values.",
+      "expected": "Ampersand is encoded as part of the value, not a parameter separator.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "POST customers/update/{customerId}.",
+      "expected": "HTTP 200 acknowledgement.",
+      "number": 8,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "GET customer details.",
+      "expected": "street=12 A&B Road and city=München exactly; no truncation/mojibake.",
+      "number": 9,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Log out of UI and log in with original generated credentials.",
+      "expected": "Normal authenticated session reestablished.",
+      "number": 10,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Open Update Contact Info.",
+      "expected": "Street/city exactly match API and requested values.",
+      "number": 11,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 12,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Browser available; UTF-8 profile update/read path; define exact round trip as the acceptance rule.",
+  "data": "street=12 A&B Road; city=München; all other original fields retained.",
+  "kind": "New automation coverage",
+  "acceptance": "Exact Unicode/ampersand persistence in API and UI; no normalization unless explicitly part of contract.",
+  "priority": "Normal",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}

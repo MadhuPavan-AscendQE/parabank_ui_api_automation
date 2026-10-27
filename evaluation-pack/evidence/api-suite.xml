@@ -1,0 +1,74 @@
+<testsuites id="" name="" tests="6" failures="2" skipped="0" errors="0" time="228.05797700000002">
+<testsuite name="api/banking.spec.ts" timestamp="2026-10-15T10:12:14.653Z" hostname="api" tests="6" failures="2" skipped="0" time="224.492" errors="0">
+<testcase name="PA-11 Bill payment response and debit" classname="api/banking.spec.ts" time="55.045">
+</testcase>
+<testcase name="PA-12 Transaction detail matches history" classname="api/banking.spec.ts" time="34.765">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|api-banking-PA-12-Transaction-detail-matches-history-api/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [api] › api/banking.spec.ts:17:5 › PA-12 Transaction detail matches history › Transaction detail matches history 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "string"
+    Received: "number"
+
+       at ../src/api/contracts/validate.ts:12
+
+      10 |     expect(typeof v.address?.[k]).toBe('string'); expect(v.password).toBeUndefined(); expect(v.username).toBeUndefined(); return v; }
+      11 | export function account(v: any): ApiAccount { id(v.id); id(v.customerId); expect(['CHECKING', 'SAVINGS', 'LOAN']).toContain(v.type); apiCents(v.balance); return v; }
+    > 12 | export function transaction(v: any): ApiTransaction { id(v.id); id(v.accountId); expect(['Debit', 'Credit']).toContain(v.type); expect(typeof v.description).toBe('string'); expect(typeof v.date).toBe('string'); expect(v.date).toMatch(/^\d{4}-\d{2}-\d{2}T/); expect(Number.isFinite(Date.parse(v.date))).toBe(true); apiCents(v.amount); return v; }
+         |                                                                                                                                                                                                    ^
+      13 | export function bill(v: any): ApiBill { id(v.accountId); apiCents(v.amount); expect(typeof v.payeeName).toBe('string'); return v; }
+      14 |
+        at map (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/contracts/validate.ts:12:196)
+        at OwnedBank.transactions (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/services/owned-bank.ts:32:310)
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:17:303
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:17:72
+
+    Error Context: ../test-results/api-banking-PA-12-Transaction-detail-matches-history-api/error-context.md
+]]>
+</failure>
+</testcase>
+<testcase name="PA-13 Amount search includes created transaction" classname="api/banking.spec.ts" time="42.434">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|api-banking-PA-13-Amount-search-includes-created-transaction-api/error-context.md]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [api] › api/banking.spec.ts:18:5 › PA-13 Amount search includes created transaction › Amount search includes created transaction 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "string"
+    Received: "number"
+
+       at ../src/api/contracts/validate.ts:12
+
+      10 |     expect(typeof v.address?.[k]).toBe('string'); expect(v.password).toBeUndefined(); expect(v.username).toBeUndefined(); return v; }
+      11 | export function account(v: any): ApiAccount { id(v.id); id(v.customerId); expect(['CHECKING', 'SAVINGS', 'LOAN']).toContain(v.type); apiCents(v.balance); return v; }
+    > 12 | export function transaction(v: any): ApiTransaction { id(v.id); id(v.accountId); expect(['Debit', 'Credit']).toContain(v.type); expect(typeof v.description).toBe('string'); expect(typeof v.date).toBe('string'); expect(v.date).toMatch(/^\d{4}-\d{2}-\d{2}T/); expect(Number.isFinite(Date.parse(v.date))).toBe(true); apiCents(v.amount); return v; }
+         |                                                                                                                                                                                                    ^
+      13 | export function bill(v: any): ApiBill { id(v.accountId); apiCents(v.amount); expect(typeof v.payeeName).toBe('string'); return v; }
+      14 |
+        at map (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/contracts/validate.ts:12:196)
+        at OwnedBank.transactions (/workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/src/api/services/owned-bank.ts:32:310)
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:23:24
+        at /workspace/scratch/f02f81fd3bd0/delivery/project-13/parabank-ui-api/tests/api/banking.spec.ts:19:5
+
+    Error Context: ../test-results/api-banking-PA-13-Amount-search-includes-created-transaction-api/error-context.md
+]]>
+</failure>
+</testcase>
+<testcase name="PA-14 Update profile and verify persistence" classname="api/banking.spec.ts" time="25.888">
+</testcase>
+<testcase name="PA-15 JSON negotiation and XML alternative" classname="api/banking.spec.ts" time="30.256">
+</testcase>
+<testcase name="PA-16 Deposit and withdrawal round trip" classname="api/banking.spec.ts" time="36.104">
+</testcase>
+</testsuite>
+</testsuites>

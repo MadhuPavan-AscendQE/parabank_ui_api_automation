@@ -1,0 +1,71 @@
+{
+  "specificationVersion": "2026-10-22",
+  "id": "P13-N16",
+  "title": "Response contract drift",
+  "scope": "New requirement",
+  "automation": "docs/api; src/api/contracts",
+  "steps": [
+    {
+      "phase": "Gate",
+      "action": "Read the requirement gate and record the chosen deployment/contract before generating runnable assertions.",
+      "expected": "If a required policy or capability is unavailable, return a Blocked/Unsupported report with the missing input. Do not guess business behavior.",
+      "number": 1,
+      "evidence": "Resolved contract/policy or exact missing input"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Load the pinned OpenAPI subset and record version/hash.",
+      "expected": "Baseline artifact identified; not overwritten.",
+      "number": 2,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Fetch live OpenAPI and retain retrieval timestamp/hash.",
+      "expected": "HTTP success and valid spec; unavailable spec yields a retrieval blocker.",
+      "number": 3,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare operations used by this project.",
+      "expected": "Added/removed methods, parameters and response codes reported with JSON paths.",
+      "number": 4,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare consumed schema properties, types, required fields and formats.",
+      "expected": "Meaningful changes distinguished from description/order-only changes.",
+      "number": 5,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Compare owned runtime transaction shape with the applicable pinned response schema.",
+      "expected": "Numeric date versus date-time string reported as a runtime/spec mismatch even if the live spec has no change.",
+      "number": 6,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Exercise",
+      "action": "Produce drift report with affected case IDs and proposed review actions.",
+      "expected": "No automatic oracle rewrite, schema coercion or false pass.",
+      "number": 7,
+      "evidence": "Observed value/status, expected-versus-actual comparison and failing step if any"
+    },
+    {
+      "phase": "Teardown",
+      "action": "Close browser/API contexts; retain sanitized case evidence and record created resource IDs in a private run manifest.",
+      "expected": "No global reset or unrelated-account mutation. Closing contexts does not delete server records; scoped deletion is unavailable.",
+      "number": 8,
+      "evidence": "Sanitized resource manifest and cleanup limitation"
+    }
+  ],
+  "setup": "Pinned OpenAPI snapshot available; live spec may be unreachable and must then be reported as Blocked.",
+  "data": "Pinned docs/api schema; live /services/bank/openapi.json; numeric date example retained as known evidence.",
+  "kind": "New contract-analysis task",
+  "acceptance": "Separate spec-to-spec drift from runtime-to-spec violation; show concrete paths and affected tests.",
+  "priority": "High",
+  "completion": "All applicable setup and assertion steps pass with recorded evidence. Stop on setup failure and distinguish Blocked from product/assertion failure. Historical result is from the previous implementation run, not execution of this expanded specification."
+}
