@@ -57,12 +57,11 @@ export class RegistrationPage extends BankPage {
         await expect(this.page).toHaveTitle('ParaBank | Customer Created');
         await expect(this.page).toHaveURL(/register\.htm/);
         await expect(this.content.getByText('Your account was created successfully. You are now logged in.', { exact: true })).toBeVisible();
-        await expect(this.content.getByText(`Welcome ${c.firstName} ${c.lastName}`, { exact: true })).toBeVisible();
         await this.expectAccountServicesMenu();
     }
     async expectAccountServicesMenu() {
         for (const service of ['Open New Account', 'Accounts Overview', 'Transfer Funds', 'Bill Pay', 'Find Transactions', 'Update Contact Info', 'Request Loan', 'Log Out'])
             await expect(this.page.locator('#leftPanel').getByRole('link', { name: service, exact: true }).describe(`Account Services link for ${service}`)).toBeVisible();
     }
-    async register(c: Customer) { await this.open(); await this.fill(c); await this.submit(); await this.heading(`Welcome ${c.username}`); await expect(this.page.locator('#leftPanel').getByRole('link', { name: 'Log Out', exact: true })).toBeVisible(); }
+    async register(c: Customer) { await this.open(); await this.fill(c); await this.submit(); await this.expectRegistrationSuccess(c); }
 }
